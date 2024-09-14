@@ -103,7 +103,7 @@ class Project(models.Model):
     
 class ProjectGroup(models.Model):
     project = models.OneToOneField(Project, on_delete=models.CASCADE, related_name='group', null=True, blank=True)
-    name = models.TextField(max_length=264)
+    name = models.TextField(max_length=264, unique=True)
     faculty = models.CharField(max_length=256, blank=True)
     academic_year = models.IntegerField(default=datetime.now().year)
     

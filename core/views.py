@@ -203,6 +203,13 @@ def create_group(request):
             messages.warning(request, message=f"Cannot create a group with no member, try again!")
             return redirect('core_app:create_group')
         try:
+            existing_group = ProjectGroup.objects.get(name=group_name)
+            if existing_group:
+                messages.warning(request, message=f"Group with similar name already exists, try again!")
+                return redirect('core_app:create_group')
+        except:
+            pass
+        try:
             
             for name, reg_num in zip(group_members, members_reg_nums):
                 if str(name).strip() == "" or str(reg_num).strip() == "":
